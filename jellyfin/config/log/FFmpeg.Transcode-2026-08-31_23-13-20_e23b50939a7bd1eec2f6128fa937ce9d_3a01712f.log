@@ -1,0 +1,96 @@
+{"Protocol":0,"Id":"e23b50939a7bd1eec2f6128fa937ce9d","Path":"/media/movies/Greenbook.mkv","EncoderPath":null,"EncoderProtocol":null,"Type":0,"Container":"mkv","Size":497048143,"Name":"Greenbook","IsRemote":false,"ETag":"e5941bf19c4e70509799973ffac0198b","RunTimeTicks":78047880000,"ReadAtNativeFramerate":false,"IgnoreDts":false,"IgnoreIndex":false,"GenPtsInput":false,"SupportsTranscoding":true,"SupportsDirectStream":true,"SupportsDirectPlay":true,"IsInfiniteStream":false,"UseMostCompatibleTranscodingProfile":false,"RequiresOpening":false,"OpenToken":null,"RequiresClosing":false,"LiveStreamId":null,"BufferMs":null,"RequiresLooping":false,"SupportsProbing":true,"VideoType":0,"IsoType":null,"Video3DFormat":null,"MediaStreams":[{"Codec":"hevc","CodecTag":null,"Language":null,"ColorRange":null,"ColorSpace":"smpte170m","ColorTransfer":"bt709","ColorPrimaries":"smpte170m","DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":"1/1000","CodecTimeBase":null,"Title":null,"VideoRange":1,"VideoRangeType":1,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":null,"LocalizedForced":null,"LocalizedExternal":null,"LocalizedHearingImpaired":null,"DisplayTitle":"480p HEVC SDR","NalLengthSize":null,"IsInterlaced":false,"IsAVC":false,"ChannelLayout":null,"BitRate":509480,"BitDepth":8,"RefFrames":1,"PacketLength":null,"Channels":null,"SampleRate":null,"IsDefault":true,"IsForced":false,"IsHearingImpaired":false,"Height":432,"Width":720,"AverageFrameRate":23.976025,"RealFrameRate":23.976025,"ReferenceFrameRate":23.976025,"Profile":"Main","Type":1,"AspectRatio":"160:81","Index":0,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":"yuv420p","Level":90,"IsAnamorphic":false},{"Codec":"aac","CodecTag":null,"Language":"eng","ColorRange":null,"ColorSpace":null,"ColorTransfer":null,"ColorPrimaries":null,"DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":"1/1000","CodecTimeBase":null,"Title":"Surround 5.1","VideoRange":0,"VideoRangeType":0,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":"Default","LocalizedForced":null,"LocalizedExternal":"External","LocalizedHearingImpaired":null,"DisplayTitle":"Surround 5.1 - English - AAC - Stereo - Default","NalLengthSize":null,"IsInterlaced":false,"IsAVC":false,"ChannelLayout":"stereo","BitRate":192000,"BitDepth":null,"RefFrames":null,"PacketLength":null,"Channels":2,"SampleRate":48000,"IsDefault":true,"IsForced":false,"IsHearingImpaired":false,"Height":null,"Width":null,"AverageFrameRate":null,"RealFrameRate":null,"ReferenceFrameRate":null,"Profile":"LC","Type":0,"AspectRatio":null,"Index":1,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":null,"Level":0,"IsAnamorphic":null},{"Codec":"DVDSUB","CodecTag":null,"Language":"eng","ColorRange":null,"ColorSpace":null,"ColorTransfer":null,"ColorPrimaries":null,"DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":"1/1000","CodecTimeBase":null,"Title":null,"VideoRange":0,"VideoRangeType":0,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":"Undefined","LocalizedDefault":"Default","LocalizedForced":"Forced","LocalizedExternal":"External","LocalizedHearingImpaired":"Hearing Impaired","DisplayTitle":"English - DVDSUB","NalLengthSize":null,"IsInterlaced":false,"IsAVC":false,"ChannelLayout":null,"BitRate":null,"BitDepth":null,"RefFrames":null,"PacketLength":null,"Channels":null,"SampleRate":null,"IsDefault":false,"IsForced":false,"IsHearingImpaired":false,"Height":480,"Width":720,"AverageFrameRate":null,"RealFrameRate":null,"ReferenceFrameRate":null,"Profile":null,"Type":2,"AspectRatio":null,"Index":2,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":null,"Level":0,"IsAnamorphic":null}],"MediaAttachments":[],"Formats":[],"Bitrate":701480,"FallbackMaxStreamingBitrate":null,"Timestamp":null,"RequiredHttpHeaders":{},"TranscodingUrl":null,"TranscodingSubProtocol":0,"TranscodingContainer":null,"AnalyzeDurationMs":null,"DefaultAudioStreamIndex":null,"DefaultSubtitleStreamIndex":null,"HasSegments":false}
+
+/usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -f matroska -init_hw_device rkmpp=rk -hwaccel rkmpp -hwaccel_output_format drm_prime -noautorotate -afbc rga -i file:"/media/movies/Greenbook.mkv" -noautoscale -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 hevc_rkmpp -tag:v:0 hvc1 -b:v 292000 -maxrate 292000 -bufsize 584000 -profile:v:0 main -level 90 -g:v:0 72 -keyint_min:v:0 72 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,vpp_rkrga=format=nv12:afbc=1" -codec:a:0 libfdk_aac -ac 2 -ab 128000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "59d7c4a318b8dbe2e5702a1d0fab458d-1.mp4" -start_number 0 -hls_segment_filename "/transcode/59d7c4a318b8dbe2e5702a1d0fab458d%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont -y "/transcode/59d7c4a318b8dbe2e5702a1d0fab458d.m3u8"
+
+
+ffmpeg version 7.1.3-Jellyfin Copyright (c) 2000-2025 the FFmpeg developers
+  built with gcc 12 (Debian 12.2.0-14)
+  configuration: --prefix=/usr/lib/jellyfin-ffmpeg --target-os=linux --extra-version=Jellyfin --disable-doc --disable-ffplay --disable-static --disable-libxcb --disable-sdl2 --disable-xlib --enable-lto=auto --enable-gpl --enable-version3 --enable-shared --enable-gmp --enable-gnutls --enable-chromaprint --enable-opencl --enable-libdrm --enable-libxml2 --enable-libass --enable-libfreetype --enable-libfribidi --enable-libfontconfig --enable-libharfbuzz --enable-libbluray --enable-libmp3lame --enable-libopus --enable-libtheora --enable-libvorbis --enable-libopenmpt --enable-libdav1d --enable-libsvtav1 --enable-libwebp --enable-libvpx --enable-libx264 --enable-libx265 --enable-libzvbi --enable-libzimg --enable-libfdk-aac --arch=arm64 --cross-prefix=/usr/bin/aarch64-linux-gnu- --toolchain=hardened --enable-cross-compile --enable-rkmpp --enable-rkrga --enable-ffnvcodec --enable-cuda --enable-cuda-llvm --enable-cuvid --enable-nvdec --enable-nvenc
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+Input #0, matroska,webm, from 'file:/media/movies/Greenbook.mkv':
+  Metadata:
+    creation_time   : 2025-09-05T04:28:39.000000Z
+    ENCODER         : Lavf61.7.100
+  Duration: 02:10:04.79, start: -0.021000, bitrate: 509 kb/s
+  Chapters:
+    Chapter #0:0: start 0.000000, end 343.093000
+      Metadata:
+        title           : Chapter 1
+    Chapter #0:1: start 343.093000, end 710.043000
+      Metadata:
+        title           : Chapter 2
+    Chapter #0:2: start 710.043000, end 1097.888000
+      Metadata:
+        title           : Chapter 3
+    Chapter #0:3: start 1097.888000, end 1426.759000
+      Metadata:
+        title           : Chapter 4
+    Chapter #0:4: start 1426.759000, end 1717.466000
+      Metadata:
+        title           : Chapter 5
+    Chapter #0:5: start 1717.466000, end 2078.868000
+      Metadata:
+        title           : Chapter 6
+    Chapter #0:6: start 2078.868000, end 2473.429000
+      Metadata:
+        title           : Chapter 7
+    Chapter #0:7: start 2473.429000, end 2804.719000
+      Metadata:
+        title           : Chapter 8
+    Chapter #0:8: start 2804.719000, end 3259.256000
+      Metadata:
+        title           : Chapter 9
+    Chapter #0:9: start 3259.256000, end 3762.509000
+      Metadata:
+        title           : Chapter 10
+    Chapter #0:10: start 3762.509000, end 4242.739000
+      Metadata:
+        title           : Chapter 11
+    Chapter #0:11: start 4242.739000, end 4576.322000
+      Metadata:
+        title           : Chapter 12
+    Chapter #0:12: start 4576.322000, end 5070.274000
+      Metadata:
+        title           : Chapter 13
+    Chapter #0:13: start 5070.274000, end 5437.766000
+      Metadata:
+        title           : Chapter 14
+    Chapter #0:14: start 5437.766000, end 5813.308000
+      Metadata:
+        title           : Chapter 15
+    Chapter #0:15: start 5813.308000, end 6296.207000
+      Metadata:
+        title           : Chapter 16
+    Chapter #0:16: start 6296.207000, end 6672.166000
+      Metadata:
+        title           : Chapter 17
+    Chapter #0:17: start 6672.166000, end 6878.872000
+      Metadata:
+        title           : Chapter 18
+    Chapter #0:18: start 6878.872000, end 7345.505000
+      Metadata:
+        title           : Chapter 19
+    Chapter #0:19: start 7345.505000, end 7804.788000
+      Metadata:
+        title           : Chapter 20
+  Stream #0:0: Video: hevc (Main), yuv420p(tv, smpte170m/smpte170m/bt709), 720x432 [SAR 32:27 DAR 160:81], 23.98 fps, 23.98 tbr, 1k tbn (default)
+      Metadata:
+        DURATION        : 02:10:04.788000000
+  Stream #0:1(eng): Audio: aac (LC), 48000 Hz, stereo, fltp (default)
+      Metadata:
+        title           : Surround 5.1
+        DURATION        : 02:10:04.778000000
+  Stream #0:2(eng): Subtitle: dvd_subtitle (dvdsub), 720x480
+      Metadata:
+        DURATION        : 02:08:53.254000000
+[hevc_rkmpp @ 0x559a633fc0] Failed to init MPP context: -1
+[vist#0:0/hevc @ 0x559a60cf00] [dec:hevc_rkmpp @ 0x559a633e80] Error while opening decoder: Generic error in an external library
+Error opening output file /transcode/59d7c4a318b8dbe2e5702a1d0fab458d.m3u8.
+Error opening output files: Generic error in an external library
